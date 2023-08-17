@@ -1,0 +1,131 @@
+.header .sign-in a {
+  color: white;
+  text-decoration: none;
+  padding: 10px 20px;
+  background-color: #360033;
+  border-radius: 50px;
+  transition: background-color 0.2s;
+}
+
+.header .sign-in a:hover {
+  background-color: #4a1942;
+}
+
+.section {
+  margin: 40px auto;
+  max-width: 900px;
+  color: #360033;
+  text-align: justify;
+}
+
+.container {
+  padding: 40px;
+  background-color: #f9f9f9;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.heading {
+  font-size: 2.5em;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 20px;
+  animation: slideInFromLeft 1s ease-in-out;
+}
+
+.section p {
+  font-size: 1.2em;
+  line-height: 1.6em;
+  margin-bottom: 30px;
+}
+
+.howItWorks img {
+  max-width: 100%;
+  margin-top: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.features ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.features li {
+  margin-bottom: 10px;
+  padding-left: 20px;
+  position: relative;
+}
+
+ 
+.features ul {
+  display:list-item;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 10px;
+  list-style: none;
+  padding: 0;
+}
+
+.features li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.features li::before {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  left: 0;
+  background: url('tick.jpg') no-repeat center center / contain;
+  align-items: center;
+}
+
+.features img{
+  width: 100px;
+  height: 100px;
+}
+
+.section {
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+
+.iframe {
+  margin-top: 20px;
+  border: none;
+}
+
+footer {
+  background-color: #0b8793;
+  color: white;
+  text-align: center;
+  padding: 20px 0;
+}
+
+footer p {
+  margin: 0;
+}
+
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
