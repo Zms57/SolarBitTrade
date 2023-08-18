@@ -1,4 +1,4 @@
-# SolarBitTrade
+# SolarBitTrade ☀️
 
 ## Table of Contents
 
