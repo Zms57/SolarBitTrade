@@ -9,91 +9,93 @@ import {
     Sig,
     SmartContract,
     Utils,
-} from 'scrypt-ts'
+    bsv
+} from 'scrypt-ts';
 
 export class EnergyTradingEscrow extends SmartContract {
-    static ENERGY_SLOTS: number
-    addenergy: any
-    static setBuyerPubKey(arg0: string, setBuyerPubKey: any) {
-        throw new Error('Method not implemented.')
-    }
 
     @prop()
-    seller: PubKeyHash
+    seller: PubKeyHash;
 
     @prop()
-    buyer: PubKeyHash
+    buyer: PubKeyHash;
 
     @prop(true)
-    energy: bigint
+    energy: bigint;
 
     @prop()
-    unitPrice: bigint
-  static contractApi: any
-    static ITEM_SLOTS: number
+    unitPrice: bigint;
 
     constructor(
         seller: PubKeyHash,
         buyer: PubKeyHash,
         unitPrice: bigint
     ) {
-        super(...arguments)
-        this.seller = seller
-        this.buyer = buyer
-        this.energy = 0n
-        this.unitPrice = unitPrice
+        super(...arguments);
+        this.seller = seller;
+        this.buyer = buyer;
+        this.energy = 0n;
+        this.unitPrice = unitPrice;
     }
-    
+
     @method()
     public buyEnergy(
-       buyerPubKey: PubKey,
-       buyerSig: Sig,
+        buyerPubKey: PubKey,
+        buyerSig: Sig,
     ) {
-        assert(hash160(buyerPubKey) == this.buyer)
-        assert(this.checkSig(buyerSig, buyerPubKey))
+        assert(hash160(buyerPubKey) == this.buyer);
+        assert(this.checkSig(buyerSig, buyerPubKey));
 
-        let outputs = Utils.buildPublicKeyHashOutput(this.seller, this.energy * this.unitPrice)
+        let outputs = Utils.buildPublicKeyHashOutput(this.seller, this.energy * this.unitPrice);
         if (this.changeAmount > 0n) {
-            outputs += this.buildChangeOutput()
+            outputs += this.buildChangeOutput();
         }
-        assert(hash256(outputs) == this.ctx.hashOutputs)
+        assert(hash256(outputs) == this.ctx.hashOutputs);
     }
 
     @method()
     public depositEnergy(
-       sellerSig: Sig,
-       sellerPubKey: PubKey,
-       energy: bigint
+        sellerSig: Sig,
+        sellerPubKey: PubKey,
+        energy: bigint
     ) {
-        assert(hash160(sellerPubKey) == this.seller)
-        assert(this.checkSig(sellerSig, sellerPubKey))
+        assert(hash160(sellerPubKey) == this.seller);
+        assert(this.checkSig(sellerSig, sellerPubKey));
+
+        this.energy += energy;
+
+        let outputs = this.buildStateOutput(this.ctx.utxo.value);
+        if (this.changeAmount > 0n) {
+            outputs += this.buildChangeOutput();
+        }
+        assert(hash256(outputs) == this.ctx.hashOutputs);
+    }
+
+    
+    static buyTxBuilder(
+        current: EnergyTradingEscrow,
+        options: any
+    ): Promise<any> {
+        const energyCost = current.energy * current.unitPrice;
+
+        const unsignedTx: bsv.Transaction = new bsv.Transaction()
+            
+            .addInput(options.fromUTXO)
+            
+            .addOutput(
+                new bsv.Transaction.Output({
+                    script: bsv.Script.fromHex(Utils.buildPublicKeyHashOutput(current.seller, energyCost)),
+                    satoshis: Number(energyCost),
+                })
+            );
+
         
-        this.energy += energy
-
-        let outputs = this.buildStateOutput(this.ctx.utxo.value)
-        if (this.changeAmount > 0n) {
-            outputs += this.buildChangeOutput()            
+        if (options.changeAddress) {
+            unsignedTx.change(options.changeAddress);
         }
-        assert(hash256(outputs) == this.ctx.hashOutputs)
+
+        return Promise.resolve({
+            tx: unsignedTx,
+        });
     }
-
-    @method()
-    public refund(buyerPubKey: PubKey, buyerSig: Sig, energy: bigint) {
-        assert(hash160(buyerPubKey) == this.buyer)
-        assert(this.checkSig(buyerSig, buyerPubKey))
-
-        assert(this.energy >= energy, "Insufficient energy balance to refund")
-
-        this.energy -= energy
-
-        let outputs = Utils.buildPublicKeyHashOutput(
-            this.buyer,
-            energy * this.unitPrice
-        )
-        if (this.changeAmount > 0n) {
-            outputs += this.buildChangeOutput()
-        }
-        assert(hash256(outputs) == this.ctx.hashOutputs)
-    }
-
 }

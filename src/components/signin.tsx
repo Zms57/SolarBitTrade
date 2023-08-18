@@ -12,16 +12,16 @@ const SigninPage: React.FC<LoginProps> = ({ onLogin, onSignUp }) => {
   const [password, setPassword] = useState<string>('');
   const [isSigningUp, setIsSigningUp] = useState<boolean>(false);
 
-  const navigate = useNavigate(); // Hook to handle navigation
+  const navigate = useNavigate(); 
 
   const handleLogin = () => {
     onLogin(username, password);
-    navigate(`/welcome/${username}`); // Navigate to welcome page
+    navigate(`/welcome/${username}`); 
   };
 
   const handleSignUp = () => {
     onSignUp(username, password);
-    navigate(`/welcome/${username}`); // Navigate to welcome page
+    navigate(`/welcome/${username}`); 
   };
 
   return (

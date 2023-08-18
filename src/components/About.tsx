@@ -22,8 +22,12 @@ const About: React.FC = () => {
               <Link to="/solution">Solution</Link>
             </li>
             <li>
+              <Link to="/signin">Trade</Link>
+            </li>
+            <li>
               <Link to="/contact">Contact</Link>
             </li>
+            
           </ul>
         </nav>
         <div className={styles['sign-in']}>
@@ -55,16 +59,22 @@ const About: React.FC = () => {
         <div className={styles.bgImageLeft}></div>
 
         <div id="team" className={styles.members}>
-          <h3 className={styles.subHeading}>Our Team</h3>
-          { }
-          {[1, 2, 3, 4, 5].map((member, index) => (
-            <motion.div key={index} className={styles.member} whileHover={{scale: 1.1, transition: {duration: 0.3}}}>
-              <img src="member1.jpg" alt="img" className={styles.memberImage} />
-              <h4 className={styles.memberName}>Team Member {member}</h4>
-              <p className={styles.memberPosition}>Solar Energy Specialist</p>
-            </motion.div>
+        <h3 className={styles.subHeading}>Our Team</h3>
+        {[
+    { image: 'member1.jpg', name: 'Wing Hei Tsang' },
+    { image: 'member2.jpg', name: 'Yesica Nithiyanantha'},
+    { image: 'member3.jpg', name: 'Ava Natali Ghahramanyan' },
+    { image: 'member4.jpg', name: 'Maira Asif' },
+    { image: 'member5.jpg', name: 'Zainab Alsaffar' },
+  ].map((member, index) => (
+    <motion.div key={index} className={styles.member} whileHover={{ scale: 1.1, transition: { duration: 0.3 } }}>
+      <img src={member.image} alt={`img${index + 1}`} className={styles.memberImage} />
+      <h4 className={styles.memberName}>{member.name}</h4>
+    </motion.div>
+
           ))}
         </div>
+        
 
         <div id="values" className={styles.values}>
           <h3 className={styles.subHeading}>Our Values</h3>

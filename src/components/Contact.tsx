@@ -6,7 +6,7 @@ const Contact: React.FC = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
-
+  const [showPopup, setShowPopup] = useState(false); // State to control the popup
   const [faqOpenId, setFaqOpenId] = useState<number | null>(null);
 
   const handleFaqClick = (id: number) => {
@@ -55,6 +55,11 @@ const Contact: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log(name, email, message);
+
+    setShowPopup(true);
+    setName('');
+    setEmail('');
+    setMessage('');
   };
 
   return (
@@ -68,6 +73,7 @@ const Contact: React.FC = () => {
             <li><Link to="/">Home</Link></li>
             <li><Link to="/about">About Us</Link></li>
             <li><Link to="/solution">Solution</Link></li>
+            <li><Link to="/signin">Trade</Link> </li>
             <li><Link to="/contact">Contact</Link></li>
           </ul>
         </nav>
@@ -77,32 +83,36 @@ const Contact: React.FC = () => {
       </header>
 
       <section id="contact" className={styles.contact}>
-  <div className={styles.container}>
-    <h2 className={styles.heading}>Contact Us</h2>
-    <div className={styles["contact-intro"]}>Have a question or feedback? We would love to hear from you!</div>
-    <form onSubmit={handleSubmit}>
-      <div className={styles.formGroup}>
-        <label className={styles.label} htmlFor="name">Your Name</label>
-        <input className={styles.input} type="text" id="name" name="name" value={name} onChange={(e) => setName(e.target.value)} required />
-      </div>
-      <div className={styles.formGroup}>
-        <label className={styles.label} htmlFor="email">Your Email</label>
-        <input className={styles.input} type="email" id="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-      </div>
-      <div className={styles.formGroup}>
-        <label className={styles.label} htmlFor="message">Your Message</label>
-        <textarea className={styles.input} id="message" name="message" value={message} onChange={(e) => setMessage(e.target.value)} required />
-      </div>
-      <button className={styles.submitButton} type="submit">Submit</button>
-    </form>
-  </div>
-</section>
+        <div className={styles.container}>
+          <h2 className={styles.heading}>Contact Us</h2>
+          <div className={styles["contact-intro"]}>Have a question or feedback? We would love to hear from you!</div>
+          <form onSubmit={handleSubmit}>
+            <div className={styles.formGroup}>
+              <label className={styles.label} htmlFor="name">Your Name</label>
+              <input className={styles.input} type="text" id="name" name="name" value={name} onChange={(e) => setName(e.target.value)} required />
+            </div>
+            <div className={styles.formGroup}>
+              <label className={styles.label} htmlFor="email">Your Email</label>
+              <input className={styles.input} type="email" id="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+            </div>
+            <div className={styles.formGroup}>
+              <label className={styles.label} htmlFor="message">Your Message</label>
+              <textarea className={styles.input} id="message" name="message" value={message} onChange={(e) => setMessage(e.target.value)} required />
+            </div>
+            <button className={styles.submitButton} type="submit">Submit</button>
+          </form>
+        </div>
+      </section>
+
+      {showPopup && (
+        <div className={styles.popup}>
+          <p>Thank you for your submission!</p>
+        </div>
+      )}
 
       <section id="faq" className={styles.faq}>
         <div className={`${styles.container} container`}>
           <h2 className={styles.heading}>Frequently Asked Questions</h2>
-          <p className={styles.subHeading}>Here are some of the most frequently asked questions from our users:</p>
-          
           <div className={styles.faqContainer}>
             {faqs.map((faq, index) => (
               <div key={index} onClick={() => handleFaqClick(index)} className={`${styles.faqItem} ${faqOpenId === index ? styles.open : ''}`}>

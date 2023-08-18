@@ -61,7 +61,7 @@
 }
 
 .submitButton {
-  background-color: #007bff;
+  background-color: #0b8793;
   color: #fff;
   padding: 15px 30px;
   border-radius: 5px;
@@ -107,7 +107,7 @@
 }
 
 .faqItem.open .faqQuestion {
-  color: #007bff;
+  color: #0b8793;
 }
 
 .faqItem.open .faqAnswer {

@@ -1,46 +1,112 @@
-# Getting Started with Create React App
+# SolarBitTrade
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Table of Contents
 
-## Available Scripts
+1. [Overview](#overview)
+2. [Contract Features](#contract-features)
+3. [Frontend Interaction](#frontend-interaction)
+4. [Quick Start](#quick-start)
+   - [Clone the Repository](#1-clone-the-repository)
+   - [Redirect to the Correct Directory](#2-redirect-to-the-correct-directory)
+   - [Install Dependencies](#3-install-dependencies)
+   - [Compile Contract](#4-compile-contract)
+   - [Load Artifact](#5-load-artifact)
+   - [Deploy Contract](#6-deploy-contract)
+   - [Run the Frontend App](#7-run-the-frontend-app)
 
-In the project directory, you can run:
 
-### `npm start`
+## Overview
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+The EnergyTrading is a smart contract designed to handle the trading of energy between a buyer and a seller. It provides a way for the seller to deposit energy into the contract and for the buyer to buy the deposited energy. The trading mechanism ensures that the buyer pays the correct amount for the energy they wish to purchase. The contract leverages the power of the scrypt-ts library, which is a TypeScript binding for the sCrypt language, providing efficient ways to handle Bitcoin SV smart contract operations.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Contract Features
 
-### `npm test`
+1.Seller and Buyer Identification:
+The contract tracks the Bitcoin SV public key hashes of both the seller and buyer to ensure that only authorized parties can interact with it.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2.Energy Management:
+The contract maintains the amount of energy deposited by the seller. The buyer can purchase this energy at a fixed unit price.
 
-### `npm run build`
+3.Security Measures:
+Transactions are secured by checking signatures against public key hashes and ensuring the correct calculation of outputs.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+4.Energy Buying Transaction Builder:
+The contract provides a static transaction builder function (buyTxBuilder) which builds the transaction for buying energy.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+# Frontend Interaction
+The frontend component, named Trade, allows users to:
 
-### `npm run eject`
+->Deploy the contract and start trading.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+->Deposit energy.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+->Buy energy.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+The frontend leverages the scrypt-ts library for interaction with the contract. Specifically, it utilizes the SensiletSigner to handle signature-related operations, enabling seamless integration with wallets that support this signer.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Quick Start
 
-## Learn More
+## 1. Clone the repository: 
+`git clone https://github.com/yourusername/project-name.git` 
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 2. Redirect to the correct directory:
+Before running the project, redirect to the right directory of the project by running
+ sh  
+cd solar
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+
+## 3. Install Dependencies:
+
+To ensure you have installed all necessary packages you should run:
+
+sh
+ npm install
+
+## 4. Compile Contract
+Run following command to compile the `EnergyTrading` contract:
+
+sh
+npx scrypt-cli compile
+
+this command will generate a contract artifact file at `artifacts\energy.json`
+
+Or call the `compile()` function in the code:
+
+sh
+await EnergyTradingEscrow.compile()
+
+## 5. Load Artifact
+
+sh
+import { EnergyTradingEscrow } from './contracts/energy';
+import  artifacts from '../artifacts/energy.json'
+EnergyTradingEscrow.loadArtifact(artifacts)
+
+
+## 6. Deploy Contract
+After compiling, deploy the contract by running: 
+
+sh
+npx scrypt-cli deploy
+
+
+## 7. Run the Frontend App
+
+Runs the app in the development mode. Open http://localhost:3000 to view it in the browser. Use this command:
+
+sh
+npm start
+
+## Note
+Ensure you have set up a proper wallet backend and connected to a Bitcoin SV node when deploying and interacting with the contract on the mainnet or testnet.
+
+## Future Enhancements
+Implement a feature to allow changing the unit price.
+
+Incorporate a refund mechanism for the buyer and seller.
+
+Improve UI/UX for better user experience and clarity.
+
+## Contribute
+Feel free to contribute to this project by opening issues or submitting pull requests. All contributions are welcomed!

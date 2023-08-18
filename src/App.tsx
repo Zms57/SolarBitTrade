@@ -8,10 +8,7 @@ import ContactPage from './components/Contact';
 import SigninPage from './components/signin';
 import WelcomePage from './components/WelcomePage';
 import { EnergyTradingEscrow } from './contracts/energy';
-import SellerPage from './components/SellerPage';
 import Trade from './components/Trade';
-//import Tradedeposite from './components/Tradedeposite';
-
 
 
 function App() {
@@ -20,7 +17,7 @@ function App() {
   };
 
   const handleSignUp = (username: string, password: string): void => {
-    // Handle sign-up logic, is this correct?
+    
   };
 
   const handlePublish = (energyAmount: number, price: number): void => {
@@ -39,9 +36,8 @@ function App() {
             path="/signin"
             element={<SigninPage onLogin={handleLogin} onSignUp={handleSignUp} />}
           />
-          {/* Corrected Route for WelcomePage */}
           <Route path="/welcome/:username" element={<WelcomePage />} />
-          <Route path="/sellerpage" element={<SellerPage onPublish={handlePublish} />} />
+
         </Routes>
       </div>
     </Router>

@@ -1,4 +1,3 @@
-// WelcomePage.tsx
 
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
@@ -15,15 +14,24 @@ const WelcomePage: React.FC = () => {
         <img
             src={logo}
             alt="SolarBitTrade Logo"
-            style={{ width: '50%', height: 'auto' }} // Set the size to half
+            style={{ width: '50%', height: 'auto', marginBottom: '20px' }} // Set the size to half
           />
 
           
-      <h2 className={styles['welcome-message']}>Welcome, {username}!</h2>
-      <div className={styles['link-container']}>
-        <Link to="/">
-          Start Trading!
-        </Link>
+      <h2 className={styles['welcome-message']}>Welcome, {username}!  </h2>
+      <div className={styles['link-container']}> 
+
+      <div style={{ marginBottom: '20px' }}>
+  <Link to="/trade">
+    Start Trading!
+  </Link>
+</div>
+<div>
+  <Link to="/">
+    Home Page
+  </Link>
+</div>
+
       </div>
     </div>
   );

@@ -26,6 +26,9 @@ const Solution: React.FC = () => {
               <Link to="/solution">Solution</Link>
             </li>
             <li>
+              <Link to="/signin">Trade</Link>
+            </li>
+            <li>
               <Link to="/contact">Contact</Link>
             </li>
           </ul>
@@ -89,7 +92,14 @@ const Solution: React.FC = () => {
             Curious about how our solar energy trading platform works? Watch our demo to get a glimpse of the seamless
             experience we offer. Sign up today to start harnessing the power of the sun efficiently and economically.
           </p>
-          <iframe title="Demo Video" src="https://www.youtube.com/embed/dQw4w9WgXcQ" width="100%" height="500" className={styles.iframe}></iframe>        </div>
+          <iframe
+  title="Demo Video"
+  src="https://www.youtube.com/embed/xxK5Uo84YrM"
+  width="100%"
+  height="500"
+  className={styles.iframe}
+></iframe>
+       </div>
       </section>
 
       <footer>
