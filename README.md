@@ -48,7 +48,7 @@ The frontend leverages the scrypt-ts library for interaction with the contract. 
 ## Quick Start
 
 ## 1. Clone the repository: 
-`git clone https://github.com/yourusername/project-name.git` 
+`git clone https://github.com/Zms57/SolarBitTrade.git`
 
 ## 2. Redirect to the correct directory:
 Before running the project, redirect to the right directory of the project by running
