@@ -52,51 +52,56 @@ The frontend leverages the scrypt-ts library for interaction with the contract. 
 
 ## 2. Redirect to the correct directory:
 Before running the project, redirect to the right directory of the project by running
- sh  
+ ```sh  
 cd solar
-
+```
 
 ## 3. Install Dependencies:
 
 To ensure you have installed all necessary packages you should run:
 
-sh
+```sh
  npm install
+```
 
 ## 4. Compile Contract
 Run following command to compile the `EnergyTrading` contract:
 
-sh
+```sh
 npx scrypt-cli compile
+```
 
 this command will generate a contract artifact file at `artifacts\energy.json`
 
 Or call the `compile()` function in the code:
 
-sh
+```sh
 await EnergyTradingEscrow.compile()
+```
+
 
 ## 5. Load Artifact
 
-sh
+```sh
 import { EnergyTradingEscrow } from './contracts/energy';
 import  artifacts from '../artifacts/energy.json'
 EnergyTradingEscrow.loadArtifact(artifacts)
-
+```
 
 ## 6. Deploy Contract
 After compiling, deploy the contract by running: 
 
-sh
+```sh
 npx scrypt-cli deploy
-
+```
 
 ## 7. Run the Frontend App
 
 Runs the app in the development mode. Open http://localhost:3000 to view it in the browser. Use this command:
 
-sh
+```sh
 npm start
+```
 
 ## Note
 Ensure you have set up a proper wallet backend and connected to a Bitcoin SV node when deploying and interacting with the contract on the mainnet or testnet.
